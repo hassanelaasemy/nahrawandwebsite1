@@ -1,5 +1,4 @@
 import "./App.css";
-import "bootstrap/dist/css/bootstrap.css";
 import SliderComming from "./pages/slider/SliderComming";
 function App() {
   return (
