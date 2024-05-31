@@ -6,7 +6,7 @@ async function fetchData() {
   return response.data.contentFormation;
 }
 
-function CardFormationComponent() {
+export default function CardFormationComponent() {
 
   
   const [data, setData] = useState(null);
@@ -32,8 +32,6 @@ function CardFormationComponent() {
   if (error) {
     return <div>Error: {error.message}</div>;
   }
-
-  console.log(data);
 
   const groupedData = [];
   for (let i = 0; i < data.length; i += 4) {
@@ -145,10 +143,4 @@ function CardFormationComponent() {
   );
 }
 
-export default function CardFormation() {
-  return (
-    <>
-      <CardFormationComponent />
-    </>
-  );
-}
+
