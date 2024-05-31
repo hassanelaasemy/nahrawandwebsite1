@@ -6,7 +6,6 @@ async function fetchData() {
     "https://nahrawandacademy.ma/api/mobile/all/shorts"
   );
 
-  console.log(response.data);
   return response.data;
 }
 
@@ -34,8 +33,6 @@ export default function QuicklyComponent() {
   if (error) {
     return <div>Error: {error.message}</div>;
   }
-
-  console.log(data);
 
   return (
     <div className="popular_2i row gapRow">
