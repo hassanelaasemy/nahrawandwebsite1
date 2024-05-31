@@ -103,16 +103,6 @@ export default function SliderComming() {
                   <span className="col_red me-1 fw-bold">Tags:</span>{" "}
                   {item.tags.join(", ")}
                 </p>
-                <h6 className="mt-4 mb-0">
-                  <a
-                    className="button"
-                    href="#"
-                    onClick={(e) => e.preventDefault()}
-                  >
-                    <i className="fa fa-play-circle align-middle me-1" /> Watch
-                    Trailer
-                  </a>
-                </h6>
               </div>
             </div>
           ))}
