@@ -1,230 +1,164 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 
 export default function SpeakersSection() {
+  const [speakersData, setSpeakersData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          "https://nahrawandacademy.ma/api/mobile/populare/speaker"
+        );
+        setSpeakersData(response.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  // Function to group speakers into sets of four
+  const chunkArray = (array, size) => {
+    const chunkedArray = [];
+    for (let i = 0; i < array.length; i += size) {
+      chunkedArray.push(array.slice(i, i + size));
+    }
+    return chunkedArray;
+  };
+
+  const speakerChunks = chunkArray(speakersData, 4);
+
   return (
-    <section id="choice" class="pt-4 pb-5">
-      <div class="container">
-        <div class="row trend_1">
-          <div class="col-md-6 col-6">
-            <div class="trend_1l">
-              <h4 class="mb-0">
-                <i class="fa fa-youtube-play align-middle col_red me-1"></i>
-                Director's <span class="col_red">Choice</span>
+    <section id="choice" className="pt-4 pb-5">
+      <div className="container">
+        <div className="row trend_1 text-start">
+          <div className="col-md-6 col-6">
+            <div className="trend_1l">
+              <h4 className="mb-0">
+                <i className="fa fa-user align-middle col_red me-1"></i>
+                Popular <span className="col_red">Speakers</span>
               </h4>
             </div>
           </div>
-          <div class="col-md-6 col-6">
-            <div class="trend_1r text-end">
-              <h6 class="mb-0">
-                <a class="button" href="#">
-                  {" "}
+          <div className="col-md-6 col-6">
+            <div className="trend_1r text-end">
+              <h6 className="mb-0">
+                <a className="button" href="#">
                   View All
                 </a>
               </h6>
             </div>
           </div>
         </div>
-        <div class="row trend_2 mt-4">
+        <div className="row trend_2 mt-4">
           <div
             id="carouselExampleCaptions3"
-            class="carousel slide"
+            className="carousel slide"
             data-bs-ride="carousel"
           >
-            <div class="carousel-indicators">
-              <button
-                type="button"
-                data-bs-target="#carouselExampleCaptions3"
-                data-bs-slide-to="0"
-                class="active"
-                aria-label="Slide 1"
-              ></button>
-              <button
-                type="button"
-                data-bs-target="#carouselExampleCaptions3"
-                data-bs-slide-to="1"
-                aria-label="Slide 2"
-                class=""
-                aria-current="true"
-              ></button>
-            </div>
-            <div class="carousel-inner">
-              <div class="carousel-item active">
-                <div class="trend_2i row">
-                  <div class="col-md-4">
-                    <div class="trend_2im clearfix position-relative">
-                      <div class="trend_2im1 clearfix">
-                        <div class="grid">
-                          <figure class="effect-jazz mb-0">
-                            <a href="#">
-                              <img src="img/12.jpg" class="w-100" alt="img25" />
-                            </a>
-                          </figure>
+            <div className="carousel-inner">
+              {speakerChunks.map((chunk, chunkIndex) => (
+                <div
+                  className={`carousel-item ${
+                    chunkIndex === 0 ? "active" : ""
+                  }`}
+                  key={chunkIndex}
+                >
+                  <div className="trend_2i row">
+                    {chunk.map((speaker) => (
+                      <div className="col-md-3" key={speaker.id}>
+                        <div className="trend_2im clearfix position-relative">
+                          <div className="trend_2im1 clearfix">
+                            <div className="grid">
+                              <figure
+                                className="effect-jazz mb-0"
+                                style={{ borderRadius: 10 }}
+                              >
+                                <a href="#">
+                                  <img
+                                    style={{
+                                      height: "300px",
+                                      objectFit: "cover",
+                                    }}
+                                    src={`https://nahrawandacademy.ma/storage/avatars/${speaker.avatar}`}
+                                    className="w-100"
+                                    alt={`Speaker ${speaker.firstName} ${speaker.lastName}`}
+                                  />
+                                </a>
+                              </figure>
+                            </div>
+                          </div>
+                          <div className="trend_2im2 clearfix position-absolute w-100 top-0">
+                            <h5>
+                              <a className="col_red" href="#">
+                                {speaker.firstName} {speaker.lastName}
+                              </a>
+                            </h5>
+
+                            <p className="mb-0">
+                              {speaker.userspeaker.biographie.substring(0, 100)}
+                              ...
+                            </p>
+
+                            <span className="social-iconsll">
+                              <a
+                                href={speaker.userspeaker.faceboock}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                              >
+                                <i className="fa fa-facebook"></i>
+                              </a>
+                              <a
+                                href={speaker.userspeaker.instagram}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                              >
+                                <i className="fa fa-instagram"></i>
+                              </a>
+                              <a
+                                href={speaker.userspeaker.linkdin}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                              >
+                                <i className="fa fa-linkedin"></i>
+                              </a>
+                            </span>
+                          </div>
                         </div>
                       </div>
-                      <div class="trend_2im2 clearfix position-absolute w-100 top-0">
-                        <h5>
-                          <a class="col_red" href="#">
-                            Semper
-                          </a>
-                        </h5>
-                        <span class="col_red">
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                        </span>
-                        <p class="mb-0">2 Views</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-4">
-                    <div class="trend_2im clearfix position-relative">
-                      <div class="trend_2im1 clearfix">
-                        <div class="grid">
-                          <figure class="effect-jazz mb-0">
-                            <a href="#">
-                              <img src="img/13.jpg" class="w-100" alt="img25" />
-                            </a>
-                          </figure>
-                        </div>
-                      </div>
-                      <div class="trend_2im2 clearfix position-absolute w-100 top-0">
-                        <h5>
-                          <a class="col_red" href="#">
-                            Lorem
-                          </a>
-                        </h5>
-                        <span class="col_red">
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                        </span>
-                        <p class="mb-0">1 Views</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-4">
-                    <div class="trend_2im clearfix position-relative">
-                      <div class="trend_2im1 clearfix">
-                        <div class="grid">
-                          <figure class="effect-jazz mb-0">
-                            <a href="#">
-                              <img src="img/14.jpg" class="w-100" alt="img25" />
-                            </a>
-                          </figure>
-                        </div>
-                      </div>
-                      <div class="trend_2im2 clearfix position-absolute w-100 top-0">
-                        <h5>
-                          <a class="col_red" href="#">
-                            Porta
-                          </a>
-                        </h5>
-                        <span class="col_red">
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                        </span>
-                        <p class="mb-0">4 Views</p>
-                      </div>
-                    </div>
+                    ))}
                   </div>
                 </div>
-              </div>
-              <div class="carousel-item">
-                <div class="trend_2i row">
-                  <div class="col-md-4">
-                    <div class="trend_2im clearfix position-relative">
-                      <div class="trend_2im1 clearfix">
-                        <div class="grid">
-                          <figure class="effect-jazz mb-0">
-                            <a href="#">
-                              <img src="img/15.jpg" class="w-100" alt="img25" />
-                            </a>
-                          </figure>
-                        </div>
-                      </div>
-                      <div class="trend_2im2 clearfix position-absolute w-100 top-0">
-                        <h5>
-                          <a class="col_red" href="#">
-                            Porta
-                          </a>
-                        </h5>
-                        <span class="col_red">
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                        </span>
-                        <p class="mb-0">4 Views</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-4">
-                    <div class="trend_2im clearfix position-relative">
-                      <div class="trend_2im1 clearfix">
-                        <div class="grid">
-                          <figure class="effect-jazz mb-0">
-                            <a href="#">
-                              <img src="img/16.jpg" class="w-100" alt="img25" />
-                            </a>
-                          </figure>
-                        </div>
-                      </div>
-                      <div class="trend_2im2 clearfix position-absolute w-100 top-0">
-                        <h5>
-                          <a class="col_red" href="#">
-                            Dapibus
-                          </a>
-                        </h5>
-                        <span class="col_red">
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                        </span>
-                        <p class="mb-0">6 Views</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-4">
-                    <div class="trend_2im clearfix position-relative">
-                      <div class="trend_2im1 clearfix">
-                        <div class="grid">
-                          <figure class="effect-jazz mb-0">
-                            <a href="#">
-                              <img src="img/17.jpg" class="w-100" alt="img25" />
-                            </a>
-                          </figure>
-                        </div>
-                      </div>
-                      <div class="trend_2im2 clearfix position-absolute w-100 top-0">
-                        <h5>
-                          <a class="col_red" href="#">
-                            Nulla
-                          </a>
-                        </h5>
-                        <span class="col_red">
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                        </span>
-                        <p class="mb-0">5 Views</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              ))}
             </div>
+            <button
+              className="carousel-control-prev"
+              type="button"
+              data-bs-target="#carouselExampleCaptions3"
+              data-bs-slide="prev"
+              style={{ visibility: "hidden" }}
+            >
+              <span
+                className="carousel-control-prev-icon"
+                aria-hidden="true"
+              ></span>
+              <span className="visually-hidden">Previous</span>
+            </button>
+            <button
+              className="carousel-control-next"
+              type="button"
+              data-bs-target="#carouselExampleCaptions3"
+              data-bs-slide="next"
+              style={{ visibility: "hidden" }}
+            >
+              <span
+                className="carousel-control-next-icon"
+                aria-hidden="true"
+              ></span>
+              <span className="visually-hidden">Next</span>
+            </button>
           </div>
         </div>
       </div>

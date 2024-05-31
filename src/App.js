@@ -11,7 +11,6 @@ import ContentSection from "./pages/content/ContentSection";
 import CultureSection from "./pages/culture/CultureSection";
 import Footer from "./components/Footer";
 
-
 function App() {
   return (
     <div className="App">
@@ -21,8 +20,9 @@ function App() {
       <Eventsection />
       <ContentSection />
       <SpeakersSection />
+
       <CultureSection />
-      <Footer/>
+      <Footer />
     </div>
   );
 }
