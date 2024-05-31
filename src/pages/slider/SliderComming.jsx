@@ -8,9 +8,9 @@ export default function SliderComming() {
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        `https://nahrawandacademy.ma/api/mobile/Cour/Formation`
+        `https://nahrawandacademy.ma/api/mobile/cours/coming`
       );
-      setCommingsoon(response.data.contentFormation || []);
+      setCommingsoon(response.data || []);
       setLoading(false);
       console.log(response.data);
     } catch (error) {
@@ -97,7 +97,7 @@ export default function SliderComming() {
 
                 <p className="mb-2">
                   <span className="col_red me-1 fw-bold">Category:</span>
-                  {item.category.category_name}
+                  {/* {item.category.category_name} */}
                 </p>
                 <p className="mb-2">
                   <span className="col_red me-1 fw-bold">Tags:</span>{" "}

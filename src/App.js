@@ -9,7 +9,6 @@ import SpeakersSection from "./pages/speakers/SpeakersSection";
 
 import ContentSection from "./pages/content/ContentSection";
 
-
 function App() {
   return (
     <div className="App">
@@ -17,9 +16,8 @@ function App() {
       <SliderComming />
       <FormationSection />
       <Eventsection />
-     <ContentSection />
+      <ContentSection />
       <SpeakersSection />
-
     </div>
   );
 }
