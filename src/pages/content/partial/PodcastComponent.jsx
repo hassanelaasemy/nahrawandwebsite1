@@ -6,7 +6,6 @@ async function fetchData() {
     "https://nahrawandacademy.ma/api/mobile/Cour/Podcast"
   );
 
-  console.log(response.data);
   return response.data.contentPodcast;
 }
 
