@@ -1,6 +1,5 @@
 import React from "react";
-
-import CardFormation from "./partial/CardFormation";
+import CardFormationComponent from "./partial/CardFormation";
 
 
 export default function FormationSection() {
@@ -11,9 +10,9 @@ export default function FormationSection() {
           <div className="row trend_1">
             <div className="col-md-6 col-6">
               <div className="trend_1l">
-                <h4 className="mb-0">
+                <h4 className="mb-0" style={{textAlign:'justify'}}>
                   <i className="fa fa-youtube-play align-middle col_red me-1" />{" "}
-                  Latest <span className="col_red">Movies</span>
+                  Latest <span className="col_red">Formation</span>
                 </h4>
               </div>
             </div>
@@ -28,7 +27,7 @@ export default function FormationSection() {
               </div>
             </div>
           </div>
-          <CardFormation />
+          <CardFormationComponent />
         </div>
       
       </section>
