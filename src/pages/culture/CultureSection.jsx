@@ -15,6 +15,7 @@ export default function CultureSection() {
                     Location <span className="col_red">Nahrawand</span>
                   </h4>
                 </div>
+                
               </div>
             </div>
             {/*  <div className="play1 row mt-4 bg_grey pt-3 pb-3">
