@@ -11,8 +11,8 @@ export default function CultureSection() {
               <div className="col-md-12">
                 <div className="trend_1l">
                   <h4 className="mb-0" style={{ textAlign: "start" }}>
-                    <i className="fa fa-youtube-play align-middle col_red me-1" />{" "}
-                    Top <span className="col_red">10 Playlist</span>
+                  <i className="fa fa-map align-middle col_red me-1"></i>{" "}
+                    Location <span className="col_red">Nahrawand</span>
                   </h4>
                 </div>
               </div>
