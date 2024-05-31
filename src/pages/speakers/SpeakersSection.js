@@ -122,7 +122,7 @@ export default function SpeakersSection() {
                                 target="_blank"
                                 rel="noopener noreferrer"
                               >
-                                <i className="fa fa-position"></i>
+                                <i className="fa fa-linkedin"></i>
                               </a>
                             </span>
                           </div>
