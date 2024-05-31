@@ -2,13 +2,13 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 async function fetchData() {
-  const response = await axios.get("https://nahrawandacademy.ma/api/mobile/Cour/Formation");
+  const response = await axios.get(
+    "https://nahrawandacademy.ma/api/mobile/Cour/Formation"
+  );
   return response.data.contentFormation;
 }
 
 export default function CardFormationComponent() {
-
-  
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -41,7 +41,7 @@ export default function CardFormationComponent() {
   return (
     <div className="row trend_2 mt-4">
       <div
-        id="carouselExampleCaptions1"
+        id="carouselExampleIndicators1"
         className="carousel slide"
         data-bs-ride="carousel"
       >
@@ -50,7 +50,7 @@ export default function CardFormationComponent() {
             <button
               key={index}
               type="button"
-              data-bs-target="#carouselExampleCaptions1"
+              data-bs-target="#carouselExampleIndicators1"
               data-bs-slide-to={index}
               className={index === 0 ? "active" : ""}
               aria-current={index === 0 ? "true" : ""}
@@ -73,10 +73,7 @@ export default function CardFormationComponent() {
                           <figure className="effect-jazz mb-0">
                             <a href="#">
                               <img
-                                src={
-                                  `https://nahrawandacademy.ma/storage/upload/cour/image/` +
-                                  item.cours_formation.image
-                                }
+                                src={`https://nahrawandacademy.ma/storage/upload/cour/image/${item.cours_formation.image}`}
                                 className="w-100"
                                 alt={item.title}
                               />
@@ -95,10 +92,12 @@ export default function CardFormationComponent() {
                     <div className="trend_2ilast bg_grey p-3 clearfix">
                       <h5>
                         <a className="col_red" href="#">
-                          ...{item.title.substring(0 , 29)}
+                          ...{item.title.substring(0, 29)}
                         </a>
                       </h5>
-                      <p className="mb-2">...{item.description.substring(0 , 30)}</p>
+                      <p className="mb-2">
+                        ...{item.description.substring(0, 30)}
+                      </p>
                       <span className="col_red">
                         {[...Array(5)].map((_, starIndex) => (
                           <i key={starIndex} className="fa fa-star" />
@@ -114,10 +113,9 @@ export default function CardFormationComponent() {
         </div>
         <button
           className="carousel-control-prev"
-          type="button"
-          data-bs-target="#carouselExampleCaptions1"
+          type="button" style={{visibility:'hidden'}}
+          data-bs-target="#carouselExampleIndicators1"
           data-bs-slide="prev"
-          style={{ visibility: "hidden" }}
         >
           <span
             className="carousel-control-prev-icon"
@@ -127,10 +125,9 @@ export default function CardFormationComponent() {
         </button>
         <button
           className="carousel-control-next"
-          type="button"
-          data-bs-target="#carouselExampleCaptions1"
+          type="button" style={{visibility:'hidden'}}
+          data-bs-target="#carouselExampleIndicators1"
           data-bs-slide="next"
-          style={{ visibility: "hidden" }}
         >
           <span
             className="carousel-control-next-icon"
@@ -142,5 +139,3 @@ export default function CardFormationComponent() {
     </div>
   );
 }
-
-

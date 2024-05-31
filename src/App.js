@@ -8,6 +8,8 @@ import Eventsection from "./pages/event/Eventsection";
 import SpeakersSection from "./pages/speakers/SpeakersSection";
 
 import ContentSection from "./pages/content/ContentSection";
+import CultureSection from "./pages/culture/CultureSection";
+import Footer from "./components/Footer";
 
 
 function App() {
@@ -17,9 +19,10 @@ function App() {
       <SliderComming />
       <FormationSection />
       <Eventsection />
-     <ContentSection />
+      <ContentSection />
       <SpeakersSection />
-
+      <CultureSection />
+      <Footer/>
     </div>
   );
 }

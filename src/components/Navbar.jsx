@@ -16,7 +16,7 @@ export default function Navbar() {
               </div>
             </div>
             <div className="col-md-5">
-            {/*   <div className="top_1m">
+              {/*   <div className="top_1m">
                 <div className="input-group">
                   <input
                     type="text"
@@ -34,9 +34,17 @@ export default function Navbar() {
                 </div>
               </div> */}
             </div>
+
             <div className="col-md-4">
               <div className="top_1r text-end">
-                <ul className="social-network social-circle mb-0">
+                <ul
+                  className="social-network social-circle mb-0"
+                  style={{
+                    gap: "10px",
+                    display: "flex",
+                    justifyContent: "flex-end",
+                  }}
+                >
                   <li>
                     <a href="#" className="icoRss" title="Rss">
                       <i className="fa fa-instagram" />
