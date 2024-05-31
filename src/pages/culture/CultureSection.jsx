@@ -1,5 +1,4 @@
 import React from "react";
-import GoogleMapsComponent from "./partial/GoogleMapsComponent";
 
 export default function CultureSection() {
   return (
