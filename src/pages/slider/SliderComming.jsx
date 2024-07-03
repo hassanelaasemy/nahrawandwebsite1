@@ -4,14 +4,16 @@ import axios from "axios";
 export default function SliderComming() {
   const [loading, setLoading] = useState(true);
   const [commingsoon, setCommingsoon] = useState([]);
+  const [videos, setVideos] = useState([]);
   const [showModal, setShowModal] = useState(false);
 
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        `https://nahrawandacademy.ma/api/mobile/cours/coming`
+        `https://ba.nahrawandacademy.com/api/content/coming`
       );
-      setCommingsoon(response.data || []);
+      setCommingsoon(response.data.contents || []);
+      setVideos(response.data.vidoes || []);
       setLoading(false);
       console.log(response.data);
     } catch (error) {
@@ -21,29 +23,22 @@ export default function SliderComming() {
   };
 
   useEffect(() => {
-    fetchData();
+    const fetchDataAndRefreshInterval = async () => {
+      await fetchData();
+      const refreshInterval = setInterval(fetchData, 20000);
+      return () => clearInterval(refreshInterval);
+    };
+    fetchDataAndRefreshInterval();
   }, []);
-
-  const getImageSource = (item) => {
-    const { cours_type, cours_podcast, cours_conference, cours_formation } =
-      item;
-    let imageUri = "";
-    switch (cours_type) {
-      case "podcast":
-        imageUri = cours_podcast?.image;
-        break;
-      case "conference":
-        imageUri = cours_conference?.image;
-        break;
-      default:
-        imageUri = cours_formation?.image;
-    }
-    return `https://nahrawandacademy.ma/storage/upload/cour/image/${imageUri}`;
-  };
 
   if (loading) {
     return <div>Loading...</div>;
   }
+
+  const combinedItems = [
+    ...commingsoon.map((item) => ({ ...item, type: "content" })),
+    ...videos.map((item) => ({ ...item, type: "video" })),
+  ];
 
   return (
     <>
@@ -54,7 +49,7 @@ export default function SliderComming() {
           data-bs-ride="carousel"
         >
           <div className="carousel-indicators">
-            {commingsoon.map((item, index) => (
+            {combinedItems.map((item, index) => (
               <button
                 key={index}
                 type="button"
@@ -66,59 +61,63 @@ export default function SliderComming() {
             ))}
           </div>
           <div className="carousel-inner">
-            {commingsoon.map((item, index) => (
+            {combinedItems.map((item, index) => (
               <div
                 key={index}
                 className={`carousel-item ${index === 0 ? "active" : ""}`}
                 style={{ height: "900px" }}
               >
                 <img
-                  src={getImageSource(item)}
+                  src={
+                    item.type === "content"
+                      ? `https://ba.nahrawandacademy.com/storage/content/` +
+                        item.image
+                      : `https://ba.nahrawandacademy.com/storage/video/` +
+                        item.image
+                  }
                   className="d-block w-100"
                   alt={`Slide ${index + 1}`}
                   style={{ height: "100%" }}
                 />
                 <div className="carousel-caption d-md-block">
-                  <h1 className="font_60">{item.title}</h1>
-                  <h6 className="mt-3">
-                    <span className="col_red me-3">
-                      <i className="fa fa-star"></i>
-                      <i className="fa fa-star"></i>
-                      <i className="fa fa-star"></i>
-                      <i className="fa fa-star"></i>
-                      <i className="fa fa-star-half-o"></i>
-                    </span>
-                    {`${new Date(item.created_at).getFullYear()}-${(
-                      new Date(item.created_at).getMonth() + 1
-                    )
-                      .toString()
-                      .padStart(2, "0")}-${new Date(item.created_at)
-                      .getDate()
-                      .toString()
-                      .padStart(2, "0")}`}
-                  </h6>
-                  <p className="mt-3">{item.description}</p>
-
-                  <p className="mb-2">
-                    <span className="col_red me-1 fw-bold">Category:</span>
-                    {/* {item.category.category_name} */}
-                  </p>
-                  <p className="mb-2">
-                    <span className="col_red me-1 fw-bold">Tags:</span>{" "}
-                    {item.tags.join(", ")}
-                  </p>
-                  <h6 className="mt-4">
-                    <a
-                      className="button"
-                      href="#"
-                      onClick={() => setShowModal(true)}
-                    >
-                      <span className="align-middle me-1">
-                        <i className="fa fa-download"></i>
-                      </span>{" "}
-                      Download App
-                    </a>
-                  </h6>
+                  {item.type === "content" && (
+                    <>
+                      <h1 className="font_60">{item.title}</h1>
+                      <h6 className="mt-3">
+                        <span className="col_red me-3">
+                          <i className="fa fa-star"></i>
+                          <i className="fa fa-star"></i>
+                          <i className="fa fa-star"></i>
+                          <i className="fa fa-star"></i>
+                          <i className="fa fa-star-half-o"></i>
+                        </span>
+                        {`${new Date(item.created_at).getFullYear()}-${(
+                          new Date(item.created_at).getMonth() + 1
+                        )
+                          .toString()
+                          .padStart(2, "0")}-${new Date(item.created_at)
+                          .getDate()
+                          .toString()
+                          .padStart(2, "0")}`}
+                      </h6>
+                      <p className="mt-3">{item.smallDescription}</p>
+                      <p className="mb-2">
+                        <span className="col_red me-1 fw-bold">Tags:</span>{" "}
+                        {item.tags.map((tag) => tag.name.en).join(", ")}
+                      </p>
+                      <h6 className="mt-4">
+                        <button
+                          className="button"
+                          onClick={() => setShowModal(true)}
+                        >
+                          <span className="align-middle me-1">
+                            <i className="fa fa-download"></i>
+                          </span>
+                          Download App
+                        </button>
+                      </h6>
+                    </>
+                  )}
                 </div>
               </div>
             ))}

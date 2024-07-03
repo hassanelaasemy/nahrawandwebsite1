@@ -8,7 +8,7 @@ export default function SpeakersSection() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "https://nahrawandacademy.ma/api/mobile/populare/speaker"
+          "https://ba.nahrawandacademy.com/api/populaire"
         );
         setSpeakersData(response.data);
       } catch (error) {
@@ -82,9 +82,9 @@ export default function SpeakersSection() {
                                       height: "300px",
                                       objectFit: "cover",
                                     }}
-                                    src={`https://nahrawandacademy.ma/storage/avatars/${speaker.avatar}`}
+                                    src={`https://ba.nahrawandacademy.com/storage/avatars/${speaker.avatar}`}
                                     className="w-100"
-                                    alt={`Speaker ${speaker.firstName} ${speaker.lastName}`}
+                                    alt={`Speaker ${speaker.fullName}`}
                                   />
                                 </a>
                               </figure>
@@ -93,32 +93,32 @@ export default function SpeakersSection() {
                           <div className="trend_2im2 clearfix position-absolute w-100 top-0">
                             <h5>
                               <a className="col_red" href="#">
-                                {speaker.firstName} {speaker.lastName}
+                                {speaker.fullName}
                               </a>
                             </h5>
 
                             <p className="mb-0">
-                              {speaker.userspeaker.biographie.substring(0, 100)}
+                              {speaker.biographie.substring(0, 100)}
                               ...
                             </p>
 
                             <span className="social-iconsll">
                               <a
-                                href={speaker.userspeaker.faceboock}
+                                href={speaker.faceboock}
                                 target="_blank"
                                 rel="noopener noreferrer"
                               >
                                 <i className="fa fa-facebook"></i>
                               </a>
                               <a
-                                href={speaker.userspeaker.instagram}
+                                href={speaker.instagram}
                                 target="_blank"
                                 rel="noopener noreferrer"
                               >
                                 <i className="fa fa-instagram"></i>
                               </a>
                               <a
-                                href={speaker.userspeaker.linkdin}
+                                href={speaker.linkdin}
                                 target="_blank"
                                 rel="noopener noreferrer"
                               >

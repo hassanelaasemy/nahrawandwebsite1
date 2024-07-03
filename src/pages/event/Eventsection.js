@@ -4,11 +4,10 @@ import axios from "axios";
 export default function Eventsection() {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
-
   const fetchEvents = async () => {
     try {
       const response = await axios.get(
-        "https://nahrawandacademy.ma/api/mobile/event"
+        "https://ba.nahrawandacademy.com/api/event"
       );
       setEvents(response.data);
       setLoading(false);
@@ -17,9 +16,13 @@ export default function Eventsection() {
       setLoading(false);
     }
   };
-
   useEffect(() => {
-    fetchEvents();
+    const fetchDataAndRefreshInterval = async () => {
+      await fetchEvents();
+      const refreshInterval = setInterval(fetchEvents, 20000);
+      return () => clearInterval(refreshInterval);
+    };
+    fetchDataAndRefreshInterval();
   }, []);
 
   if (loading) {
@@ -91,9 +94,10 @@ export default function Eventsection() {
                               <figure className="effect-jazz mb-0">
                                 <a href="#">
                                   <img
-                                    src={`https://nahrawandacademy.ma/storage/upload/event/${event.image}`}
+                                    src={`https://ba.nahrawandacademy.com/storage/event/${event.image}`}
                                     className="w-100"
                                     alt={event.title}
+                                    style={{ height: 180 }}
                                   />
                                 </a>
                               </figure>
@@ -111,8 +115,7 @@ export default function Eventsection() {
                           </p>
                           <p className="mb-0">
                             <i className="fa fa-clock-o align-middle col_red me-1"></i>
-
-                            {event.date_start}
+                            {event.dateStart}
                           </p>
                         </div>
                       </div>
